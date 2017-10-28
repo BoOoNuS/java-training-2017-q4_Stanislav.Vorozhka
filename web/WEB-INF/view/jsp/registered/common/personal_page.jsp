@@ -17,12 +17,12 @@
 <hr/>
 
 <div class="page-element">
-    ${sessionScope.user.role.name}<br/>
-    ${sessionScope.user.fullName}<br/>
+    <fmt:message key="page.lang.role"/>: ${sessionScope.user.role.name}<br/>
+    <fmt:message key="page.lang.full.name"/>: ${sessionScope.user.fullName}<br/>
 
     <%-- Check passport --%>
     <c:if test="${not empty sessionScope.user.passport}">
-        ${sessionScope.user.passport}<br/><br/>
+        <fmt:message key="page.lang.passport"/>: ${sessionScope.user.passport}<br/><br/>
     </c:if>
 
     <c:if test="${empty sessionScope.user.passport}">

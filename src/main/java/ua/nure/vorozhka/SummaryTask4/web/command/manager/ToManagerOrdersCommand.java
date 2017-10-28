@@ -27,6 +27,8 @@ public class ToManagerOrdersCommand extends Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws AppException {
         LOG.debug("Command starts");
 
+        long currentTimeMillis = System.currentTimeMillis();
+        req.setAttribute("currentTimeMillis", currentTimeMillis);
         List<Order> orders = FACADE.getOrders();
         LOG.trace(String.format("Orders --> %s", orders.toString()));
         req.setAttribute("orders", orders);

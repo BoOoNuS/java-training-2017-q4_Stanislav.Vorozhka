@@ -3,6 +3,7 @@ package ua.nure.vorozhka.SummaryTask4.db.transaction;
 import ua.nure.vorozhka.SummaryTask4.exception.db.DBException;
 import ua.nure.vorozhka.SummaryTask4.model.constant.State;
 import ua.nure.vorozhka.SummaryTask4.model.entyty.Order;
+import ua.nure.vorozhka.SummaryTask4.model.entyty.StateCounter;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface OrderTransactionManager {
     boolean setNullToOrderFieldPenaltyIdByOrderNumber(int orderNumber) throws DBException;
 
     boolean setOrderFieldStateByOrderNumber(State state, int orderNumber) throws DBException;
+
+    List<StateCounter> getStateCountOnOrders() throws DBException;
 }

@@ -7,6 +7,7 @@ import ua.nure.vorozhka.SummaryTask4.exception.ExceptionMessages;
 import ua.nure.vorozhka.SummaryTask4.exception.db.DBException;
 import ua.nure.vorozhka.SummaryTask4.model.constant.State;
 import ua.nure.vorozhka.SummaryTask4.model.entyty.Order;
+import ua.nure.vorozhka.SummaryTask4.model.entyty.StateCounter;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -140,6 +141,21 @@ public class PostgresOrderTransactionManager implements OrderTransactionManager 
             throw new DBException(ExceptionMessages.COULD_NOT_SET_ORDER_FIELD_STATE_MESSAGE, e);
         }
         daoFactory.commit(connection);
+        daoFactory.close(connection);
+        return result;
+    }
+
+    @Override
+    public List<StateCounter> getStateCountOnOrders() throws DBException {
+        Connection connection = daoFactory.getConnection();
+        List<StateCounter> result;
+        try {
+            result = daoFactory.getOrderDAO().getStateCountOnOrders(connection);
+        } catch (SQLException e) {
+            LOG.error(ExceptionMessages.COULD_NOT_GET_STATE_CINTERS, e);
+            daoFactory.rollBack(connection);
+            throw new DBException(ExceptionMessages.COULD_NOT_GET_STATE_CINTERS, e);
+        }
         daoFactory.close(connection);
         return result;
     }

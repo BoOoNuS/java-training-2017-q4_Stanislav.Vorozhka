@@ -55,11 +55,20 @@
                     </c:if>
                 </td>
 
-                <td>${order.term}</td>
+                <td>
+                    <c:if test="${(order.term.time - currentTimeMillis) / 86400000 < 0}">
+                        <fmt:message key="page.lang.order.expired"/>
+                        ${-(((order.term.time - currentTimeMillis) -
+                        (order.term.time - currentTimeMillis) % 86400000)/ 86400000)}
+                        <fmt:message key="page.lang.days"/>
+                    </c:if>
+                    <c:if test="${(order.term.time - currentTimeMillis) / 86400000 >= 0}">
+                        ${order.term}
+                    </c:if>
+                </td>
                 <td>${order.state}</td>
 
                 <c:if test="${not empty order.penalty.cause}">
-
                     <td>
                         <fmt:message key="page.lang.cause"/> - ${order.penalty.cause}<br/>
                         <fmt:message key="page.lang.cost"/> - ${order.penalty.cost}
@@ -71,23 +80,23 @@
                 </c:if>
 
                 <c:if test="${order.state.name == 'expectation'}">
-                    <td>
-                        <form action="/controller" method="post">
-                            <input type="hidden" name="command" value="confirmOrder">
-                            <input type="hidden" name="orderNumber" value="${order.number}">
-                            <input type="submit" class="btn btn-sm btn-primary"
-                                   value="<fmt:message key="page.lang.confirm"/>">
-                        </form>
-                    </td>
+                        <td>
+                            <form action="/controller" method="post">
+                                <input type="hidden" name="command" value="confirmOrder">
+                                <input type="hidden" name="orderNumber" value="${order.number}">
+                                <input type="submit" class="btn btn-sm btn-primary"
+                                       value="<fmt:message key="page.lang.confirm"/>">
+                            </form>
+                        </td>
 
-                    <td>
-                        <form action="/controller">
-                            <input type="hidden" name="command" value="toRejectOrder">
-                            <input type="hidden" name="orderNumber" value="${order.number}">
-                            <input type="submit" class="btn btn-sm btn-primary"
-                                   value="<fmt:message key="page.lang.reject"/>">
-                        </form>
-                    </td>
+                        <td>
+                            <form action="/controller">
+                                <input type="hidden" name="command" value="toRejectOrder">
+                                <input type="hidden" name="orderNumber" value="${order.number}">
+                                <input type="submit" class="btn btn-sm btn-primary"
+                                       value="<fmt:message key="page.lang.reject"/>">
+                            </form>
+                        </td>
                 </c:if>
 
                 <c:if test="${order.state.name == 'paid'}">

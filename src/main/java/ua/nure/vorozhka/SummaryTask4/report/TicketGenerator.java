@@ -108,13 +108,6 @@ public final class TicketGenerator {
         return paragraph;
     }
 
-    private static Image getStampImg(File file) throws BadElementException, IOException {
-        String imageUrl = "stamp.png";
-        Image stamp = Image.getInstance(imageUrl);
-        stamp.setAlignment(Element.ALIGN_RIGHT);
-        return stamp;
-    }
-
     private static PdfPTable getTableOfCar(Car car) {
         PdfPTable tableOfCarInfo = new PdfPTable(2);
 

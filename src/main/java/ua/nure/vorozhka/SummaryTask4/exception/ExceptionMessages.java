@@ -51,6 +51,9 @@ public final class ExceptionMessages {
     public static final String COULD_NOT_GET_PENALTY_BY_ID_MESSAGE = "Could not get penalty by id";
     public static final String COULD_NOT_DELETE_PENALTY_BY_ID_MESSAGE = "Could not delete penalty by id";
 
+    // State
+    public static final String COULD_NOT_GET_STATE_CINTERS = "Could not get state counters";
+
     // Common
     public static final String MAYBE_YOUR_ROBOT_MESSAGE = "Maybe your are robot";
     public static final String INCORRECT_SEARCH_PARAMETER_MESSAGE = "Incorrect search parameter";

@@ -7,6 +7,7 @@ import ua.nure.vorozhka.SummaryTask4.model.constant.Role;
 import ua.nure.vorozhka.SummaryTask4.model.constant.State;
 import ua.nure.vorozhka.SummaryTask4.model.entyty.Car;
 import ua.nure.vorozhka.SummaryTask4.model.entyty.Order;
+import ua.nure.vorozhka.SummaryTask4.model.entyty.StateCounter;
 import ua.nure.vorozhka.SummaryTask4.model.entyty.User;
 
 import java.sql.Connection;
@@ -35,6 +36,8 @@ public abstract class OrderDAO {
 
     public abstract boolean setOrderFieldStateByOrderNumber(
             Connection connection, State state, int orderNumber) throws SQLException;
+
+    public abstract List<StateCounter> getStateCountOnOrders(Connection connection) throws SQLException;
 
     protected Order getOrder(ResultSet resultSet) throws SQLException {
         Order order = new Order();
@@ -76,5 +79,12 @@ public abstract class OrderDAO {
         user.setBlocked(resultSet.getBoolean(15));
         user.setRole(Role.getRoleById(resultSet.getInt(16)));
         return user;
+    }
+
+    protected StateCounter getStateCounter(ResultSet resultSet) throws SQLException {
+        StateCounter stateCounter = new StateCounter();
+        stateCounter.setCount(resultSet.getInt(1));
+        stateCounter.setState(State.valueOf(resultSet.getString(2).toUpperCase()));
+        return stateCounter;
     }
 }

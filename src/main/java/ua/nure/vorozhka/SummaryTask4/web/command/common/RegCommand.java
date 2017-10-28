@@ -32,10 +32,7 @@ public class RegCommand extends Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws AppException {
         LOG.debug("Command starts");
 
-        req.getParameterMap().keySet().forEach(System.out::println);
-
         checkCaptcha(req);
-
 
         User user = CommandUtils.getUserFromRequest(req);
         LOG.trace(String.format("Request parameter: user --> %s", user.toString()));
@@ -51,7 +48,7 @@ public class RegCommand extends Command {
     private void checkCaptcha(HttpServletRequest req) throws AppException {
         String gRecaptchaResponse = req
                 .getParameter("g-recaptcha-response");
-        System.out.println(gRecaptchaResponse);
+
         if (gRecaptchaResponse.isEmpty()) {
             throw new AppException(ExceptionMessages.MAYBE_YOUR_ROBOT_MESSAGE);
         }

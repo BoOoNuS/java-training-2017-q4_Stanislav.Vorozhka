@@ -36,6 +36,7 @@ public final class Paths {
     public static final String ORDERS_MANAGER_PAGE = "WEB-INF/view/jsp/registered/manager/orders_page.jsp";
     public static final String PENALTY_PAGE = "WEB-INF/view/jsp/registered/manager/penalty_page.jsp";
     public static final String REJECT_PAGE = "WEB-INF/view/jsp/registered/manager/reject_page.jsp";
+    public static final String STATE_STATS_PAGE = "WEB-INF/view/jsp/registered/manager/state_stats_page.jsp";
 
     // Admin
     public static final String CARS_PAGE = "WEB-INF/view/jsp/registered/admin/cars_page.jsp";

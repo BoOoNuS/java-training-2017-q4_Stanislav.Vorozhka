@@ -34,8 +34,8 @@
                 <td>${order.user.passport}</td>
 
                 <td>
-                    <fmt:message key="page.lang.class"/> - ${order.car.clazz.name}<br/>
-                    <fmt:message key="page.lang.mark"/> - ${order.car.mark.name}<br/>
+                    <fmt:message key="page.lang.class"/> - ${order.car.clazz}<br/>
+                    <fmt:message key="page.lang.mark"/> - ${order.car.mark}<br/>
                     <fmt:message key="page.lang.name"/> - ${order.car.name}<br/>
                     <fmt:message key="page.lang.cost"/> - ${order.car.cost}
                 </td>
@@ -50,8 +50,18 @@
                     </c:if>
                 </td>
 
-                <td>${order.term}</td>
-                <td>${order.state.name}</td>
+                <td>
+                    <c:if test="${(order.term.time - currentTimeMillis) / 86400000 < 0}">
+                        <fmt:message key="page.lang.order.expired"/>
+                        ${-(((order.term.time - currentTimeMillis) -
+                        (order.term.time - currentTimeMillis) % 86400000)/ 86400000)}
+                        <fmt:message key="page.lang.days"/>
+                    </c:if>
+                    <c:if test="${(order.term.time - currentTimeMillis) / 86400000 >= 0}">
+                        ${order.term}
+                    </c:if>
+                </td>
+                <td>${order.state}</td>
 
                 <c:if test="${not empty order.penalty.cause}">
 

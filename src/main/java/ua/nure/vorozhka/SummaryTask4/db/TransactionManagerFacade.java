@@ -7,6 +7,7 @@ import ua.nure.vorozhka.SummaryTask4.model.constant.Role;
 import ua.nure.vorozhka.SummaryTask4.model.constant.State;
 import ua.nure.vorozhka.SummaryTask4.model.entyty.Car;
 import ua.nure.vorozhka.SummaryTask4.model.entyty.Order;
+import ua.nure.vorozhka.SummaryTask4.model.entyty.StateCounter;
 import ua.nure.vorozhka.SummaryTask4.model.entyty.User;
 
 import java.util.HashMap;
@@ -113,6 +114,11 @@ public class TransactionManagerFacade implements Facade {
                 setOrderFieldStateByOrderNumber(state, orderNumber);
     }
 
+    @Override
+    public List<StateCounter> getStateCountOnOrders() throws DBException {
+        return transactionManagerFactory.getOrderTransactionManager().getStateCountOnOrders();
+    }
+
     // Penalty
     @Override
     public boolean createPenalty(Penalty penalty) throws DBException {
@@ -175,7 +181,6 @@ public class TransactionManagerFacade implements Facade {
     }
 
     // Penalty order
-
     @Override
     public boolean createAndSetOrderFieldPenaltyIdByOrderNumber(
             Penalty penalty, int orderNumber) throws DBException {

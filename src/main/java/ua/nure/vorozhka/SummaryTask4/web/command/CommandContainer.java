@@ -49,6 +49,7 @@ public class CommandContainer {
         commands.put("confirmOrder", new ConfirmOrderCommand());
         commands.put("toRejectOrder", new ToRejectOrderCommand());
         commands.put("rejectOrder", new RejectOrderCommand());
+        commands.put("toStateCount", new ToStateCountCommand());
 
         // Admin command
         commands.put("toCars", new ToCarsCommand());

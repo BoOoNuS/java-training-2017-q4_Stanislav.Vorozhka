@@ -1,5 +1,6 @@
 <c:if test="${not empty sessionScope.user}">
     <c:if test="${sessionScope.user.role.name == 'manager' || sessionScope.user.role.name == 'admin'}">
         <li><a href="/controller?command=toManagerOrders"><fmt:message key="page.lang.orders"/></a></li>
+        <li><a href="/controller?command=toStateCount"><fmt:message key="page.lang.state.status"/></a></li>
     </c:if>
 </c:if>

@@ -6,6 +6,7 @@ import ua.nure.vorozhka.SummaryTask4.model.constant.Role;
 import ua.nure.vorozhka.SummaryTask4.model.constant.State;
 import ua.nure.vorozhka.SummaryTask4.model.entyty.Car;
 import ua.nure.vorozhka.SummaryTask4.model.entyty.Order;
+import ua.nure.vorozhka.SummaryTask4.model.entyty.StateCounter;
 import ua.nure.vorozhka.SummaryTask4.model.entyty.User;
 
 import java.util.List;
@@ -59,6 +60,8 @@ public interface Facade {
     boolean setNullToOrderFieldPenaltyIdByOrderNumber(int orderNumber) throws DBException;
 
     boolean setOrderFieldStateByOrderNumber(State state, int orderNumber) throws DBException;
+
+    List<StateCounter> getStateCountOnOrders() throws DBException;
 
     // Penalty
     boolean createPenalty(Penalty penalty) throws DBException;

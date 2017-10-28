@@ -1,12 +1,11 @@
-package ua.nure.vorozhka.SummaryTask4.web.command.user;
+package ua.nure.vorozhka.SummaryTask4.web.command.manager;
 
 import org.apache.log4j.Logger;
 import ua.nure.vorozhka.SummaryTask4.db.Facade;
 import ua.nure.vorozhka.SummaryTask4.db.TransactionManagerFacade;
 import ua.nure.vorozhka.SummaryTask4.db.connector.postgres.PostgresTransactionManagerFactory;
 import ua.nure.vorozhka.SummaryTask4.exception.AppException;
-import ua.nure.vorozhka.SummaryTask4.model.entyty.Order;
-import ua.nure.vorozhka.SummaryTask4.model.entyty.User;
+import ua.nure.vorozhka.SummaryTask4.model.entyty.StateCounter;
 import ua.nure.vorozhka.SummaryTask4.web.Paths;
 import ua.nure.vorozhka.SummaryTask4.web.command.Command;
 
@@ -15,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by Stanislav on 26.05.2017.
+ * Created by Stanislav on 30.05.2017.
  */
-public class ToClientOrders extends Command {
+public class ToStateCountCommand extends Command {
 
-    private static final Logger LOG = Logger.getLogger(ToClientOrders.class);
+    private static final Logger LOG = Logger.getLogger(ToStateCountCommand.class);
 
     private static final Facade FACADE =
             TransactionManagerFacade.getInstance(PostgresTransactionManagerFactory.getInstance());
@@ -28,16 +27,11 @@ public class ToClientOrders extends Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws AppException {
         LOG.debug("Command starts");
 
-        long currentTimeMillis = System.currentTimeMillis();
-        req.setAttribute("currentTimeMillis", currentTimeMillis);
-        User user = (User) req.getSession().getAttribute("user");
-        LOG.trace(String.format("Session parameter: user --> %s", user.toString()));
-
-        List<Order> orders = FACADE.getOrdersByUserLogin(user.getLogin());
-        LOG.trace(String.format("Orders --> %s", orders));
-        req.setAttribute("orders", orders);
+        List<StateCounter> stateCounters = FACADE.getStateCountOnOrders();
+        LOG.trace(String.format("stateCounters --> %s", stateCounters.toString()));
+        req.setAttribute("stateCounters", stateCounters);
 
         LOG.debug("Command finished");
-        return Paths.ORDERS_CLIENT_PAGE;
+        return Paths.STATE_STATS_PAGE;
     }
 }
