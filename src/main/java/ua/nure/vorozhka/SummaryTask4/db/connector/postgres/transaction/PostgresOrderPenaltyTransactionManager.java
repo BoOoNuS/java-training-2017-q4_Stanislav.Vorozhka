@@ -61,6 +61,7 @@ public class PostgresOrderPenaltyTransactionManager implements OrderPenaltyTrans
     @Override
     public boolean createAndSetOrderFieldPenaltyIdByOrderNumberAndChangeState(
             Penalty penalty, int orderNumber, State state) throws DBException {
+        //TODO Think about trigger for order state here
 
         Connection connection = daoFactory.getConnection();
         boolean result;

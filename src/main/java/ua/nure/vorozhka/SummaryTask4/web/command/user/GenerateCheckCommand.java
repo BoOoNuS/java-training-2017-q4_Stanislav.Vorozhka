@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Stanislav on 26.05.2017.
+ * Created on 26.05.2017.
+ * @author Stanislav Vorozhka
  */
 public class GenerateCheckCommand extends Command {
 

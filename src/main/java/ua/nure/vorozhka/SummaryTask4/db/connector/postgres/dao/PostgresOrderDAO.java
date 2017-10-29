@@ -15,30 +15,36 @@ import java.util.List;
  */
 public class PostgresOrderDAO extends OrderDAO {
 
+    private static final String RECORDS_RESULT_ALIAS_SQL =
+            "result(number integer, user_login character varying(16), car_id integer, " +
+                    "state_id integer, penalty_id integer, " +
+                    "driver boolean, term date, pen_id integer, penalty_cost integer, cause character varying(96), " +
+                    "login character varying(16), password character varying(32), " +
+                    "fullname character varying(32), passport character varying(8), " +
+                    "blocked boolean, role_id integer, ca_id integer, mark_id integer, " +
+                    "class_id integer, name character varying(16), car_cost integer, there_is boolean);";
+
     private static final String INSERT_INTO_ORDERS_SQL =
             "INSERT INTO orders (user_login, car_id, driver, term) VALUES (?, ?, ?, ?)";
 
     private static final String SELECT_FROM_ORDERS_SQL =
-            "SELECT * FROM orders o LEFT OUTER JOIN penalty p ON o.penalty_id = p.id " +
-                    "INNER JOIN users u ON o.user_login = u.login " +
-                    "INNER JOIN cars c ON o.car_id = c.id AND o.number = ?";
+            String.format("SELECT * FROM select_orders_by_order_number(?) AS %s", RECORDS_RESULT_ALIAS_SQL);
 
     private static final String SELECT_ALL_FROM_ORDERS_SQL =
-            "SELECT * FROM orders o LEFT OUTER JOIN penalty p ON o.penalty_id = p.id " +
-                    "INNER JOIN users u ON o.user_login = u.login INNER JOIN cars c ON o.car_id = c.id";
+            "SELECT * FROM select_all_from_orders() AS " + RECORDS_RESULT_ALIAS_SQL;
 
     private static final String UPDATE_PENALTY_SQL = "UPDATE orders SET penalty_id = ? WHERE number = ?";
 
     private static final String UPDATE_STATE_ID_SQL = "UPDATE orders SET state_id = ? WHERE number = ?";
 
     private static final String SELECT_FROM_ORDERS_BY_USER_LOGIN_SQL =
-            "SELECT * FROM orders o LEFT OUTER JOIN penalty p ON o.penalty_id = p.id " +
-                    "INNER JOIN users u ON o.user_login = u.login INNER JOIN cars c ON o.car_id = c.id WHERE o.user_login = ?";
+            String.format("SELECT * FROM select_orders_by_user_login(?) AS %s", RECORDS_RESULT_ALIAS_SQL);
 
-    private static final String UPDATE_ORDERS_SET_NULL_BY_NUMBER_SQL = "UPDATE orders SET penalty_id = NULL WHERE number = ?";
+    private static final String UPDATE_ORDERS_SET_NULL_BY_NUMBER_SQL =
+            "UPDATE orders SET penalty_id = NULL WHERE number = ?";
 
-    private static final String GET_STATE_COUNT_SQL = "SELECT COUNT(o.state_id), s.name FROM orders o" +
-            " INNER JOIN states s ON o.state_id = s.id GROUP BY s.name";
+    private static final String GET_STATE_COUNT_SQL =
+            "SELECT * FROM get_state_count_on_orders() result(count bigint, name text)";
 
     private static PostgresOrderDAO postgresOrderDAO;
 

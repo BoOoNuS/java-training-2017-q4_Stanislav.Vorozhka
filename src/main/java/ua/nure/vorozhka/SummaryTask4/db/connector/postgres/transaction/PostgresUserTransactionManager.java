@@ -83,6 +83,7 @@ public class PostgresUserTransactionManager implements UserTransactionManager {
 
     @Override
     public boolean updateUserByLogin(User user, String oldLogin) throws DBException {
+        // TODO Create trigger for auditing user update
         Connection connection = daoFactory.getConnection();
         boolean result;
         try {
@@ -118,6 +119,7 @@ public class PostgresUserTransactionManager implements UserTransactionManager {
         Connection connection = daoFactory.getConnection();
         boolean result;
         try {
+            // TODO Create trigger for auditing passport date
             result = daoFactory.getUserDAO().setUserFieldPassportByUserLogin(connection, passport, userLogin);
         } catch (SQLException e) {
             LOG.error(ExceptionMessages.COULD_NOT_SET_USER_FIELD_PASSPORT_MESSAGE, e);
@@ -132,6 +134,7 @@ public class PostgresUserTransactionManager implements UserTransactionManager {
     @Override
     public boolean setUserFieldBlockedByUserLogin(boolean blocked, String userLogin) throws DBException {
         Connection connection = daoFactory.getConnection();
+        // TODO Create trigger for auditing blocking
         boolean result;
         try {
             result = daoFactory.getUserDAO().setUserFieldBlockedByUserLogin(connection, blocked, userLogin);
